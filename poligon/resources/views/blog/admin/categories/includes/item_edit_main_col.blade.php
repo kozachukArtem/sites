@@ -42,9 +42,14 @@
                                      required>
                                  @foreach($categoryList as $categoryOption)
                                      <option value="{{ $categoryOption->id }}"
-                                           @if($categoryOption->id == $item->parent_id) selected @endif>
+                                     @if($categoryOption->id == $item->parent_id) selected @endif>
+                                         {{ $categoryOption->id_title }}
+@php
+/*
                                         {{ $categoryOption->id }}. {{ $categoryOption->title }}
-                                     </option>
+*/
+@endphp
+                                    </option>
                                  @endforeach
                              </select>
                          </div>
@@ -63,3 +68,14 @@
         </div>
     </div>
 </div>
+@php
+/*
+    @foreach($categoryList as $categoryOption)
+        <option value="{{ $categoryOption->id }}"
+              @if($categoryOption->id == $item->parent_id) selected @endif>
+           {{--{{ $categoryOption->id }}. {{ $categoryOption->title }}--}}
+            {{ $categoryOption->id_title }}
+        </option>
+    @endforeach
+*/
+@endphp

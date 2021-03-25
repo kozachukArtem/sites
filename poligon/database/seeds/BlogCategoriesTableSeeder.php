@@ -15,12 +15,12 @@ class BlogCategoriesTableSeeder extends Seeder
 
         $cName = 'Без категории';
         $categories[] = [
-            'parent_id' => 0,
+            'parent_id' => 1,
             'slug'      => str_slug($cName),
             'title'     => $cName,
         ];
 
-        for ($i = 1; $i <= 10; $i++) {
+        for ($i = 2; $i <= 11; $i++) {
             $cName = 'Категория №'.$i;
             $parentId = ($i > 4) ? rand(1, 4) : 1;
 

@@ -1,10 +1,5 @@
 <?php
 
-namespace App\Http\Controllers\Blog\Admin;
-
-use App\Http\Requests\BlogCategoryCreateRequest;
-use App\Http\Requests\BlogCategoryUpdateRequest;
-use App\Models\BlogCategory;
 use App\Repositories\BlogCategoryRepository;
 
 /**
@@ -137,37 +132,3 @@ class CategoryController extends BaseController
         }
     }
 }
-//Создаст объект но не добавит в БД
-//$item = new BlogCategory($data);
-//$item->save();
-
-//$item = BlogCategory::findOrFail($id);, BlogCategoryRepository $categoryRepository
-//$categoryList = BlogCategory::all();
-//$item = $categoryRepository->getEdit($id);
-//$categoryList = $categoryRepository->getForComboBox();
-
-//->fill($data)
-//->save();
-/*$rules = [
-    'title'       => 'required|min:5|max:200',
-    'slug'        => 'max:200',
-    'description' => 'string|max:500|min:3',
-    'parent_id'   => 'required|integer|exists:blog_categories,id',
-];*/
-
-//$item = BlogCategory::find($id);
-
-//$validatedData = $this->validate($request, $rules);
-
-//$validatedData = $request->validate($rules);
-
-/*$validator = \Validator::make($request->all(), $rules);
-$validatedData[] = $validator->passes();
-$validatedData[] = $validator->validate();
-$validatedData[] = $validator->valid();
-$validatedData[] = $validator->failed();
-$validatedData[] = $validator->errors();
-$validatedData[] = $validator->fails();
-$validatedData[] = $validator->passes();
-
-dd($validatedData);*/
