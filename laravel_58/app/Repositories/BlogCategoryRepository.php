@@ -43,7 +43,7 @@ class BlogCategoryRepository extends CoreRepository
             ->selectRaw($columns)
             ->toBase()
             ->get();
-            //dd($result);
+
         return $result;
 
     }
@@ -59,9 +59,9 @@ class BlogCategoryRepository extends CoreRepository
         $result = $this
             ->startConditions()
             ->select($columns)
-            /*
-             *
-             */
+            ->with([
+                'parentCategory:id,title',
+            ])
             ->paginate($perPage);
 
         return $result;
