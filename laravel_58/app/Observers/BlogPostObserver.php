@@ -85,15 +85,25 @@ class BlogPostObserver
             $blogPost->slug = \Str::slug($blogPost->title);
         }
     }
+
+    /**
+     * @param \App\Models\BlogPost $blogPost
+     */
+    public function deleting(BlogPost $blogPost)
+    {
+        // return false;
+    }
+
     /**
      * Handle the models blog post "deleted" event.
      *
      * @param  \App\ModelsBlogPost  $modelsBlogPost
+     *
      * @return void
      */
-    public function deleted(ModelsBlogPost $modelsBlogPost)
+    public function deleted(BlogPost $blogPost)
     {
-        //
+        //dd(__METHOD__, $blogPost);
     }
 
     /**
