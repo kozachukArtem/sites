@@ -17,7 +17,7 @@ class CreateDayFactsTable extends Migration
             $table->id();
             $table->string('slug', 50)->unique();
             $table->string('title')->nullable();
-            $table->string('fact')->nullable();
+            $table->text('fact')->nullable();
             $table->date('date')->nullable();
             $table->timestamps();
         });

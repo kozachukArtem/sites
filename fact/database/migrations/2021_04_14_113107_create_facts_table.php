@@ -15,9 +15,10 @@ class CreateFactsTable extends Migration
     {
         Schema::create('facts', function (Blueprint $table) {
             $table->id();
-            $table->integer('category_id')->unsigned();
+            $table->bigInteger('category_id')->unsigned();
             $table->string('slug')->unique();
-            $table->string('fact');
+            $table->text('fact');
+            $table->boolean('demonstrated')->default(false);
             $table->timestamps();
             $table->softDeletes();
             $table->foreign('category_id')->references('id')->on('categories');
