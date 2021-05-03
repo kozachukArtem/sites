@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Facts extends Model
 {
     use HasFactory;
+    /*
+     * Получить тему, которой принадлежит факт
+     */
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }

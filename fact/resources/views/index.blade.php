@@ -7,14 +7,19 @@
 @endsection
 
 @section('content')
-    <p>This is my Facts.</p>
-    <table>
-        @foreach($items as $item)
-            <tr>
-                <td>{{ $item->id }}</td>
-                <td>{{ $item->slug }}</td>
-                <td>{{ $item->fact }}</td>
-            </tr>
-        @endforeach
-    </table>
+    <form method="GET" action="{{ route('fact.test.show') }}">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h3>This is my Facts.</h3>
+                    {{ $dayFact->slug }}.
+                    {{ $dayFact->title }}<br>
+                    {{ $dayFact->fact }}<br>
+                    <button type="submit" class="btn btn-primary" formmethod = "get">Apply</button>
+                    <a href="{{ route('fact.test.show') }}" class="btn btn-primary">New Post</a>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

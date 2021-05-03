@@ -18,4 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 */
-Route::get('/', [FactController::class, 'index']);
+Route::get('/', [FactController::class, 'show'])->name('fact.test.show');
+Route::get('/', [FactController::class, 'index'])
+    ->name('fact.test.index');
+
