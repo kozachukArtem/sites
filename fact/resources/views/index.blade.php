@@ -1,14 +1,13 @@
 @extends('layout')
 @section('title','Zdes budut Facty')
-
 @section('sidebar')
     @parent
     <p>This is appended to the master sidebar.</p>
 @endsection
 
 @section('content')
-    <form method="GET" action="{{ route('fact.test.show') }}">
     <div class="row justify-content-center">
+        <img src="{{asset('image/logo.png')}}" alt="">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-body">
@@ -16,8 +15,6 @@
                     {{ $dayFact->slug }}.
                     {{ $dayFact->title }}<br>
                     {{ $dayFact->fact }}<br>
-                    <button type="submit" class="btn btn-primary" formmethod = "get">Apply</button>
-                    <a href="{{ route('fact.test.show') }}" class="btn btn-primary">New Post</a>
                 </div>
             </div>
         </div>
