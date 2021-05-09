@@ -15,8 +15,8 @@ class CreateDayFactsTable extends Migration
     {
         Schema::create('day_facts', function (Blueprint $table) {
             $table->id();
+            $table->string('title', 30)->unique();
             $table->string('slug', 50)->unique();
-            $table->string('title')->nullable();
             $table->text('fact')->nullable();
             $table->date('date')->nullable();
             $table->timestamps();

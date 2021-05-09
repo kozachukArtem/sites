@@ -15,13 +15,11 @@ class CreateFactsTable extends Migration
     {
         Schema::create('facts', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('category_id')->unsigned();
             $table->string('slug')->unique();
             $table->text('fact');
             $table->boolean('demonstrated')->default(false);
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('category_id')->references('id')->on('categories');
         });
     }
 

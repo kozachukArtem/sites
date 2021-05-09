@@ -18,35 +18,34 @@ class FactController extends Controller
 
     public function selectFact()
     {
-        $dayFact = DayFact::where('slug', '=','day-fact')->first(); // \DB::table('day_facts')->
+        $dayFact = DayFact::where('slug', '=','day-fact')->first();
         $timeChangeFact = $this->changeFact($dayFact);
         if ( $timeChangeFact)
         {
             $allFacts = $this->getAllFacts();
             if ($allFacts->isEmpty())
             {
-                $factsOver = $this->allFactsAreShown();
-                $df = $factsOver->fact;
-                $dt = $factsOver->title;
+//                $factsOver = $this->allFactsAreShown();
+                $dt = 'Oops!!!';
+                $df = 'Sorry, we are looking for new interesting facts. Try checking tomorrow';
             }
             else
             {
                 $randomFact = $this->randomFactShow($allFacts);
+                $dt = 'This Is My Fact';
                 $df = $randomFact->fact;
-                $dt = $randomFact->category->title;
             }
             $dayFact = $this->newDayFact($dayFact, $df, $dt);
         }
         return $dayFact;
     }
-    public function changeFact( $dayFact)
+    public function changeFact( $dayFact): bool
     {
         return $dayFact->date!=date('Y-m-d');
     }
     public function getAllFacts()
     {
-        //$allFacts = Facts::where('demonstrated','=' ,false)->pluck('slug');
-        return Facts::where('demonstrated','=' ,false)->pluck('slug');
+        return Facts::where('demonstrated',false)->pluck('slug');
     }
     public function randomFactShow($allFacts)
     {
@@ -56,36 +55,12 @@ class FactController extends Controller
         $randomFact->save();
         return $randomFact;
     }
-    public function allFactsAreShown()
-    {
-        //$factsOver = DayFact::where('slug', '=','facts-over')->first();
-        return DayFact::where('slug', '=','facts-over')->first();
-    }
     public function newDayFact($dayFact, $df, $dt)
     {
-        $dayFact->fact = $df;
         $dayFact->title = $dt;
+        $dayFact->fact = $df;
         $dayFact->date = date('Y.m.d');
         $dayFact->save();
         return $dayFact;
     }
 }
-/*
-                //$dayFact->fact = $factsOver->fact;
-                //$dayFact->title = $factsOver->title;
-                 //$dayFact->fact = $randomFact->fact;
-                //$dayFact->title = $randomFact->category->title;
-       //$dayFact = DayFact::where('slug', '=','day-fact')->first(); // \DB::table('day_facts')->
-        //$dt =  ($dayFact->date=date('Y-m-d'));
-        //$dateInTable = $dayFact->date;
-
-                //$items = $items->random();   //last();
-//        $items = Facts::all();
-//                return view('index', compact('dayFact'));
-        else
-        {
- //           dd($dayFact->date, date('Y-m-d'));
-            $er = 'Oshibka!';
-//            return view('error', compact('er'));
-        }
-*/
