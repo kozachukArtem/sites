@@ -2,27 +2,40 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Facts;
-use App\Models\DayFact;
+use App\Repositories\DayFactRepository;
+use App\Repositories\FactsRepository;
 
 /*
  * Обрабатывает факт в сутки
  */
 class FactController extends Controller
 {
+/*
+ * FactController конструктор
+ */
+    public function __construct()
+    {
+        $this->DayFactRepository = app(DayFactRepository::class);
+        $this->FactsRepository = app(FactsRepository::class);
+    }
+/*
+ * Отображает по факту в сутки или сообщение об отсутствии свежих фактов
+ */
     public function index()
     {
         $dayFact = $this->selectFact();
         return view('index', compact('dayFact'));
     }
-
+/*
+ * Выбирает случайный факт или сообщение об отсутствии свежих фактов
+ */
     public function selectFact()
     {
-        $dayFact = DayFact::where('slug', '=','day-fact')->first();
+        $dayFact = $this->DayFactRepository->getDayFact();
         $timeChangeFact = $this->changeFact($dayFact);
         if ( $timeChangeFact)
         {
-            $allFacts = $this->getAllFacts();
+            $allFacts = $this->FactsRepository->getAllFacts();
             if ($allFacts->isEmpty())
             {
 //                $factsOver = $this->allFactsAreShown();
@@ -31,36 +44,20 @@ class FactController extends Controller
             }
             else
             {
-                $randomFact = $this->randomFactShow($allFacts);
+                $randomFact = $this->FactsRepository->randomFactShow($allFacts);
                 $dt = 'This Is My Fact';
                 $df = $randomFact->fact;
             }
-            $dayFact = $this->newDayFact($dayFact, $df, $dt);
+            $dayFact = $this->DayFactRepository->newDayFact($dayFact, $df, $dt);
         }
         return $dayFact;
     }
+/*
+ * Поменять на свежий факт (true)
+ */
     public function changeFact( $dayFact): bool
     {
         return $dayFact->date!=date('Y-m-d');
     }
-    public function getAllFacts()
-    {
-        return Facts::where('demonstrated',false)->pluck('slug');
-    }
-    public function randomFactShow($allFacts)
-    {
-        $randomSlug = $allFacts->random();
-        $randomFact = Facts::where('slug',$randomSlug)->first();
-        $randomFact->demonstrated = true;
-        $randomFact->save();
-        return $randomFact;
-    }
-    public function newDayFact($dayFact, $df, $dt)
-    {
-        $dayFact->title = $dt;
-        $dayFact->fact = $df;
-        $dayFact->date = date('Y.m.d');
-        $dayFact->save();
-        return $dayFact;
-    }
+
 }
